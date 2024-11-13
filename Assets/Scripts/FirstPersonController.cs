@@ -89,8 +89,9 @@ public class FirstPersonController : MonoBehaviour
     private float sprintBarHeight;
     private bool isSprintCooldown = false;
     private float sprintCooldownReset;
-
+    public float dashSpeed = 20f;
     #endregion
+    public ParticleSystem dashParticle;
 
     #region Jump
 
@@ -120,6 +121,7 @@ public class FirstPersonController : MonoBehaviour
     public bool enableCrouch = true;
     public bool holdToCrouch = true;
     public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode dashKey = KeyCode.C;
     public float crouchHeight = .75f;
     public float speedReduction = .5f;
 
@@ -179,6 +181,7 @@ public class FirstPersonController : MonoBehaviour
 
         #region Sprint Bar
 
+        dashParticle = GameObject.FindWithTag("DashParticles").GetComponent<ParticleSystem>();
         sprintBarCG = GetComponentInChildren<CanvasGroup>();
 
         if(useSprintBar)
@@ -360,6 +363,11 @@ public class FirstPersonController : MonoBehaviour
         }
 
         #endregion
+        #region Dash
+        if (Input.GetKeyUp(dashKey)){
+            Dash();
+        }
+        #endregion
 
         CheckGround();
 
@@ -395,7 +403,7 @@ public class FirstPersonController : MonoBehaviour
                 targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
 
                 // Apply a force that attempts to reach our target velocity
-                Vector3 velocity = rb.velocity;
+                Vector3 velocity = rb.linearVelocity;
                 Vector3 velocityChange = (targetVelocity - velocity);
                 velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
                 velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
@@ -433,7 +441,7 @@ public class FirstPersonController : MonoBehaviour
                 targetVelocity = transform.TransformDirection(targetVelocity) * walkSpeed;
 
                 // Apply a force that attempts to reach our target velocity
-                Vector3 velocity = rb.velocity;
+                Vector3 velocity = rb.linearVelocity;
                 Vector3 velocityChange = (targetVelocity - velocity);
                 velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
                 velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
@@ -483,7 +491,7 @@ public class FirstPersonController : MonoBehaviour
     {
         if (!isGrounded && !hasDoubleJumped)
         {
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(0f, doubleJumpPower, 0f, ForceMode.Impulse);
             hasDoubleJumped = true;
         }
@@ -550,9 +558,14 @@ public class FirstPersonController : MonoBehaviour
             joint.localPosition = new Vector3(Mathf.Lerp(joint.localPosition.x, jointOriginalPos.x, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.y, jointOriginalPos.y, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.z, jointOriginalPos.z, Time.deltaTime * bobSpeed));
         }
     }
+    public void Dash()
+    {
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y , rb.linearVelocity.z * dashSpeed);
+        dashParticle.Play();
+    }
 }
 
-
+    
 
 // Custom Editor
 #if UNITY_EDITOR
