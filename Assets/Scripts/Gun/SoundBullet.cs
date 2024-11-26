@@ -80,7 +80,7 @@ public class SoundBullet : MonoBehaviour
     {
         if (Expands) Iterate((obj) => 
         {
-            Debug.Log("Expand");
+            //Debug.Log("Expand");
             Vector3 oldScale = obj.transform.localScale;
             obj.transform.localScale = new Vector3(oldScale.x + (originalScale.x * ScaleExpandingRate * Time.deltaTime), originalScale.y, oldScale.z + (originalScale.z * ScaleExpandingRate * Time.deltaTime));
         });

@@ -52,7 +52,7 @@ MonoBehaviour:
   ElementsDistanceSpacing: 0.8
   ScaleExpandingRate: 12
   TemporalExpandingRateInSeconds: 0.1
-  TravelSpeed: 30
+  TravelSpeed: 200
   LifespanInSeconds: 25
   Direction: {x: 0, y: 0, z: 0}
   BaseBulletModel: {fileID: 0}

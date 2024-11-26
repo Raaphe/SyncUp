@@ -29,7 +29,7 @@ public class GunController : MonoBehaviour
     private void UpdateBulletDirection()
     {
         trajectoryRay = mainCamera.ScreenPointToRay(Input.mousePosition);
-        Debug.Log(trajectoryRay.direction.normalized);
+        //Debug.Log(trajectoryRay.direction.normalized);
     }
 
     private void Fire()
