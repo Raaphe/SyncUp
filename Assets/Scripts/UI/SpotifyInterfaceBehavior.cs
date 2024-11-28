@@ -13,7 +13,7 @@ public class SpotifyInterfaceBehavior : MonoBehaviour
     private Button rewindButton;
     private Button playPauseButton;
     private Button activationButton;
-    private TextMeshProUGUI artistTitleText;
+    private TextMeshProUGUI artistTitleText; 
     private SpotifyController spotifyController;
     private int rewindDurationSeconds = 10;
     public bool ControllerEnabled = false;

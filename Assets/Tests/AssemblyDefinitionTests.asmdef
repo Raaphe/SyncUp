@@ -1,0 +1,12 @@
+{
+  "name": "AssemblyDefinitionTests",
+  "references": [
+    "Main"
+  ],
+  "optionalUnityReferences": [
+    "AssemblyDefinitionTests"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

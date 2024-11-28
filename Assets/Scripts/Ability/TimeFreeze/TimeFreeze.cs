@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -19,7 +18,7 @@ public class TimeFreeze : MonoBehaviour
     {
         AbilityDurationSeconds = 5;
         this.PostProcessVolume = Camera.GetComponent<PostProcessVolume>();
-        this.ColorGrading = PostProcessVolume.volumeProfile.GetModule<ColorGrading>();
+        //this.ColorGrading = PostProcessVolume.volumeProfile.GetModule<ColorGrading>();
     }
 
     // Update is called once per frame
