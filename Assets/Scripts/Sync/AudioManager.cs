@@ -92,15 +92,22 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     public void InitializeLoopbackCapture()
     {
-        loopbackCapture.Initialize();
-        loopbackCapture.DataAvailable += (sender, _event) =>
+        try
         {
-            //Debug.Log("Capture : " + _event.Data.Length/2);
-            ProcessDefaultAudioStream(_event.Data);
-            this.UpdateProperties();
-        };
-        StartCapture(); 
-        loopbackCapture.Stopped += LoopbackCapture_Stopped;
+            Debug.Log("AUDIO MANAGER INIT");
+            loopbackCapture.Initialize();
+            loopbackCapture.DataAvailable += (sender, _event) =>
+            {
+                //Debug.Log("Capture : " + _event.Data.Length/2);
+                ProcessDefaultAudioStream(_event.Data);
+                this.UpdateProperties();
+            };
+            StartCapture();
+            loopbackCapture.Stopped += LoopbackCapture_Stopped;
+        } catch (Exception ex)
+        {
+            Debug.Log(ex);
+        }
     }
 
     public void StartCapture()

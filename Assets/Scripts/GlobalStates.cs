@@ -18,10 +18,17 @@ public class GlobalStates : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+        }
         else if (Instance != this)
             Destroy(this); //on loading a new scene, object wont be destroyed
         DontDestroyOnLoad(this);
+    }
+
+    private void Start()
+    {
+        Time.timeScale = 1f;
     }
 
     private void UpdateTime()

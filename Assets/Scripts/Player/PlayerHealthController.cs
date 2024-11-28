@@ -25,12 +25,19 @@ public class PlayerHealthController : MonoBehaviour
     public Slider HealthSlider;
     public bool UseHealthSlider = true;
 
+    private PauseController pauseController;
+
     public event EventHandler OnZero;
 
     void Start()
     {
         CurrentHealth = MaxHealth;
         if (HealthSlider == null ) UseHealthSlider = false;
+        pauseController = GameObject.Find("PauseController").GetComponent<PauseController>();
+        OnZero += (object sender, EventArgs e) => 
+        {
+            pauseController.ActuateDeathOverlay();
+        };
     }
 
     private IEnumerator AlterateHealth(float by, HealthAlterationTypes alterationType)
@@ -70,8 +77,14 @@ public class PlayerHealthController : MonoBehaviour
 
     public void AlterateHealthInstantly(float value)
     {
+        Debug.Log("INSTANT");
         CurrentHealth = value;
         UpdateHealthSlider();
+    }
+
+    public void KillPlayer()
+    {
+        AlterateHealthInstantly(MaxHealth);
     }
 
     //public void Regenerate()

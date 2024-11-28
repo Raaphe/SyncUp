@@ -12,6 +12,7 @@ public class PauseController : MonoBehaviour
 
     public Canvas GameOverlay;
     public Canvas PauseOverlay;
+    public Canvas DeathOverlay;
 
     public event EventHandler OnPauseEnter;
     public event EventHandler OnPauseLeave;
@@ -31,6 +32,7 @@ public class PauseController : MonoBehaviour
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         PauseOverlay.gameObject.SetActive(false);
+        DeathOverlay.gameObject.gameObject.SetActive(false);
 
         OnPauseEnter += (object sender, EventArgs e) => 
         {
@@ -77,5 +79,15 @@ public class PauseController : MonoBehaviour
     {
         if (Input.GetKeyDown(PauseKey))
             TogglePause();
+    }
+
+    public void ActuateDeathOverlay()
+    {
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        playerController.PlayerCanMove = false;
+        GameOverlay.gameObject.SetActive(false);
+        PauseOverlay.gameObject.SetActive(false);
+        DeathOverlay.gameObject.SetActive(true);
     }
 }

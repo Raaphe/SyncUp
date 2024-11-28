@@ -60,6 +60,15 @@ public class MenuBehavior : MonoBehaviour
                 button.onClick.AddListener(() => Navigate(lastInterface));
     }
 
+    private void NavigateMenu(bool menuCanvas, bool storeCanvas, bool levelSelectorCanvas, MenuUserInterface nextInterface)
+    {
+        this.levelSelectorCanvas.gameObject.SetActive(levelSelectorCanvas);
+        this.storeCanvas.gameObject.SetActive(storeCanvas);
+        this.menuCanvas.gameObject.SetActive(menuCanvas);
+        lastInterface = currentInterface;
+        currentInterface = nextInterface;
+    }
+
     private void Navigate(MenuUserInterface userInterface)
     {
         switch (userInterface) 
@@ -77,15 +86,6 @@ public class MenuBehavior : MonoBehaviour
                 NavigateMenu(true, false, false, MenuUserInterface.MENU);
                 break;
         }
-    }
-
-    private void NavigateMenu(bool menuCanvas, bool storeCanvas, bool levelSelectorCanvas, MenuUserInterface nextInterface)
-    {
-        this.levelSelectorCanvas.gameObject.SetActive(levelSelectorCanvas);
-        this.storeCanvas.gameObject.SetActive(storeCanvas);
-        this.menuCanvas.gameObject.SetActive(menuCanvas);
-        lastInterface = currentInterface;
-        currentInterface = nextInterface;
     }
 
     private void Exit()

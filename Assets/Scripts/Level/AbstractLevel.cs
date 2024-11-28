@@ -6,8 +6,13 @@ using UnityEngine;
 public abstract class Level : MonoBehaviour
 {
 
-    public int LevelID;
-    public string Name;
+    public string LevelID;
     public Challenge[] challenges;
-    
+
+    private void Update()
+    {
+        foreach (Challenge challenge in challenges) 
+            if (!challenge.Completed) challenge.Check();
+    }
+
 }
